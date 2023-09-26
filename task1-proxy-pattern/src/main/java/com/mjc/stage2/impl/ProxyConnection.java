@@ -13,20 +13,19 @@ public class ProxyConnection implements Connection {
 
     public void reallyClose() {
         // Write your code here!
-        if (!isClosed && realConnection != null && !realConnection.isClosed()   ) {
             realConnection.close();
-            isClosed = true;
-        }
     }
 
     @Override
     public void close() {
-        isClosed = false;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        connectionPool.releaseConnection(connection);
     }
 
     @Override
     public boolean isClosed() {
-        return isClosed || (realConnection != null && realConnection.isClosed());
+        return realConnection.isClosed();
     }
     // Implement methods here!
 }
