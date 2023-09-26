@@ -21,7 +21,7 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void close() {
-        isClosed = true;
+        isClosed = false;
     }
 
     @Override
